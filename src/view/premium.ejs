@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<style>
+    /* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+header {
+  text-align: center;
+  background-color: #ff0000;
+  color: #fff;
+  padding: 2rem;
+}
+
+header h1 {
+  font-size: 2.5rem;
+}
+
+header p {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+  background-color: #fff;
+  margin: 2rem;
+  border-radius: 8px;
+}
+
+.feature {
+  text-align: center;
+  width: 22%;
+}
+
+.feature h2 {
+  font-size: 1.5rem;
+  color: #ff0000;
+  margin-bottom: 0.5rem;
+}
+
+.feature p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.pricing {
+  text-align: center;
+  margin: 2rem;
+}
+
+.pricing h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.pricing button {
+  padding: 0.8rem 2rem;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s;
+}
+
+.pricing button:hover {
+  background-color: #cc0000;
+}
+
+.btn {
+     margin :auto;
+    font-family: "Trebuchet MS"
+}
+#rzp-button1 i{
+    margin-right: 10px;
+}
+</style>
+<body>
+    <header>
+        <h1>YouTube Premium</h1>
+        <p>Enjoy Ad Free,Custom Video Add And Make Own Playlist</p>
+      </header>
+    
+      <section class="features">
+        <div class="feature">
+          <h2>Add Playlist Video</h2>
+          <p>Custom Video Add And Make Own Playlist</p>
+        </div>
+      </section>
+    
+      <section class="pricing">
+        <h2>Only YouTube Premium ₹500/month?</h2>
+        <button id="rzp-button1" class = "btn btn-outline-dark btn-lg" ><i class="fas fa-money-bill"></i>Buy Premium</button>
+      </section>
+</body>
+<script>
+
+document.querySelector('#rzp-button1').addEventListener("click",() => handlepayment())
+     const handlepayment = async(amount) => {
+        let res = await fetch("http://localhost:5000/payment/order",{
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            body : JSON.stringify()
+        })
+        let order = await res.json()
+        console.log("Order ---- - - -- - >",order);
+        
+        let options = {
+            key :"rzp_test_FEDCdAl8u7oJE9",
+            amount : amount,
+            currency:"INR",
+            order_id:order.payment.razorpay_order_id,
+            handler:async function(response){
+              const body = {
+                razorpay_order_id : response.razorpay_order_id,
+                razorpay_payment_id : response.razorpay_payment_id,
+                razorpay_signature : response.razorpay_signature,
+              }
+              console.log("Respone Data =-========----->",body);
+
+             let verify = await fetch("http://localhost:5000/payment/verify-paymnet",{
+                method:"POST",
+                headers: {"content-type": "application/json"},
+                body : JSON.stringify(body)
+             })
+             let res_2 =await verify.json()
+             alert(`${res_2.message}`)
+             console.log("Payment Fail = = = = = = = = = = = = >",res_2);
+             
+            }  
+        }        
+        let rpay = new Razorpay(options)
+        rpay.on('payment.failed',async function (response){
+           let verify = await fetch("http://localhost:5000/payment/verify-paymnet",{
+                method:"POST",
+                headers: {"content-type": "application/json"},
+             })  
+            let res = await verify.json()
+            alert(`${res.message}`)
+           
+        });
+        rpay.open()
+    }
+</script>
+</html>

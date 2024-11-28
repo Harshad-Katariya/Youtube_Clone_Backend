@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #000000;
+            padding: 20px;
+            border:3px solid #ff0000;
+            border-radius: 20px;
+            box-shadow: 0 0 15px #ff0000;
+        }
+        .header {
+            text-align: center;
+            padding: 10px 0;
+        }
+        .header img {
+            max-width: 40%;
+            filter: drop-shadow(5px 0px 5px #eb3535);
+        }
+        .content {
+            text-align: center;
+            padding: 20px;
+        }
+        .content h1 {
+            color: #ffffff;
+        }
+        .content p {
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        .content a {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 25px;
+            background-color: #ff0000;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #ffffff;
+        }
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .social-icons {
+            margin: 10px 0;
+        }
+        .social-icons img {
+            width: 35px;
+            height: 35px;
+            margin: 0 5px;
+        }
+        .image {
+            height: 160px;
+            width: 160px;
+            border-radius: 50%;
+            margin: auto;
+        }
+        .image .profile-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #fff;
+}
+
+
+        /* Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100%;
+                padding: 10px;
+            }
+            .content h1 {
+                font-size: 24px;
+            }
+            .content p {
+                font-size: 14px;
+            }
+            .content a {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            .footer {
+                font-size: 12px;
+            }
+            .social-icons img {
+                width: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="email-container">
+        <!-- Header Section -->
+        <div class="header">
+            <a href="#"><img src="https://i.ibb.co/2N61f9Z/CITYPNG-COM-HD-Gold-Golden-Youtube-YT-Logo-PNG-4000x4000.png" alt="Logo"></a>
+        </div>
+        <div class="image">
+            <a href="#"><img src="{user_profile}" alt="" class="profile-img" /></a>
+          </div>
+
+        <!-- Content Section -->
+        <div class="content">
+            <h1>Welcome to {channel_name}</h1>
+            <p>We're Here To Help! Check Out The Analytics Tab To See How You Can Grow Your Channel And Bulid Your Community.</p>
+            <a href="{channel_link}" target="_blank">Visit Our Channel</a>
+        </div>
+        
+        <!-- Footer Section -->
+        <div class="footer">
+            <p>Follow us on:</p>
+            <div class="social-icons">
+                <a href="#" target="_blank">
+                    <img src="https://i.ibb.co/TP63xPy/Facebook-Logo-2023.png" alt="Facebook">
+                </a>
+                <a href="#" target="_blank">
+                    <img src="https://i.ibb.co/f8rGzRs/twitter-x-new-logo-x-rounded-icon-256078.png" alt="Twitter">
+                </a>
+                <a href="#" target="_blank">
+                    <img src="https://i.ibb.co/qgjsS1Z/pngegg-1.png" alt="Instagram">
+                </a>
+            </div>
+            <p>© {year} {channel_name}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
